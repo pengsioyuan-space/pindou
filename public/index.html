@@ -76,14 +76,21 @@
             /><button id="applySize">确认</button>
           </div>
           <label
-            >颜色合并阈值 <output id="thresholdOut">32</output
+            >颜色合并阈值 (0–100) <output id="thresholdOut">30</output
+            ><input id="threshold" type="range" min="0" max="100" value="30"
+          /></label>
+          <div class="inline">
+            <span>手动输入</span
             ><input
-              id="threshold"
-              type="range"
+              id="thresholdNumber"
+              aria-label="手动输入颜色合并阈值"
+              type="number"
               min="0"
               max="100"
-              value="32" /></label
-          ><label
+              value="30"
+            /><button id="applyThreshold">确认</button>
+          </div>
+          <label
             >处理模式<select id="mode">
               <option value="dominant">卡通（主色）</option>
               <option value="average">真实（平均）</option>
@@ -94,10 +101,10 @@
           ><button class="wide primary" id="regenerate">应用参数并生成</button>
         </section>
         <section class="panel">
-          <h2>工具 <small id="currentTool">当前：画笔</small></h2>
+          <h2>工具 <small id="currentTool">当前：拖拽</small></h2>
           <div class="tools">
-            <button data-tool="pan">拖拽 (H)</button
-            ><button data-tool="brush" class="primary">画笔 (B)</button
+            <button data-tool="pan" class="primary">拖拽 (H)</button
+            ><button data-tool="brush">画笔 (B)</button
             ><button data-tool="pick">取色 (I)</button
             ><button id="undo">撤回 (E)</button
             ><button data-tool="fill">填充 (F)</button
@@ -107,13 +114,14 @@
             ><button id="highlight">颜色高亮</button
             ><button id="keys">显示色号</button
             ><button id="coords">显示坐标</button
-            ><button id="replace">替换颜色</button
+            ><button id="replace">替换杂色</button
             ><button id="background">一键去背景</button
             ><button data-tool="erase">手动消除背景</button
             ><button id="textTool">文字生成</button
             ><button id="redo">重做</button><button id="resize">调整画布</button
             ><button id="newBlank">新建画板</button>
           </div>
+          <h3 class="brush-heading">画笔形状</h3>
           <div class="inline">
             <label
               >画笔大小<input
@@ -126,34 +134,51 @@
               ><input id="solid" type="checkbox" checked />矩形实心</label
             >
           </div>
-          <div class="inline color-current">
-            <input type="color" id="color" value="#000000" /><span
-              id="colorName"
-              >#000000</span
-            >
+        </section>
+        <section class="panel brush-palette">
+          <h2>画笔颜色选择</h2>
+          <button id="paletteView" class="wide palette-view">
+            完整色板（221）
+          </button>
+          <div id="swatches" class="swatches"></div>
+          <div class="color-current">
+            <input
+              type="color"
+              id="color"
+              value="#000000"
+              aria-label="自定义画笔颜色"
+            /><span id="colorName">当前：未选择</span>
           </div>
         </section>
-        <section class="panel">
-          <h2>品牌与色板 <small id="paletteTotal"></small></h2>
-          <select id="brand">
+        <section class="panel replacement-panel" id="replacementPanel">
+          <h2>替换杂色</h2>
+          <p>
+            点击颜色替换为想要的颜色。总计: <span id="beadTotal">0 颗</span>
+          </p>
+          <div id="colorCounts" class="color-counts">
+            <p class="muted">生成图纸后显示颜色与用量</p>
+          </div>
+        </section>
+        <section class="panel palette-export">
+          <h2>色板与导出 <small id="paletteTotal">可用色 221</small></h2>
+          <select id="brand" hidden aria-label="色号系统">
             <option>MARD</option>
             <option>COCO</option>
             <option>漫漫</option>
             <option>盼盼</option>
             <option>咪小窝</option>
           </select>
-          <div class="inline">
-            <button id="paletteManage">色板管理</button
-            ><button id="paletteImport">导入色板</button
-            ><button id="paletteExport">导出色板</button>
+          <div class="brand-row">
+            <span>品牌:</span>
+            <div class="brand-buttons" id="brandButtons"></div>
           </div>
-          <div id="swatches" class="swatches"></div>
-        </section>
-        <section class="panel">
-          <h2>颜色统计 <small id="beadTotal">0 个豆子</small></h2>
-          <div id="colorCounts" class="color-counts">
-            <p class="muted">生成图纸后显示每种颜色的用量</p>
+          <div class="preset-row">
+            <span>色号:</span>
+            <div class="preset-buttons" id="presetButtons"></div>
           </div>
+          <p class="muted" id="presetStatus" hidden>自定义选择</p>
+          <button id="paletteManage" class="wide outlined">色板管理</button>
+          <button id="downloadBottom" class="wide primary">下载图纸</button>
         </section>
         <p class="aside-note">
           图片在浏览器中处理 · 图纸可保存到服务器<br />每张卡密最多绑定 2
@@ -166,7 +191,7 @@
       id="file"
       accept="image/png,image/jpeg,.csv,.json"
       hidden
-    /><input type="file" id="paletteFile" accept=".json" hidden />
+    />
     <div id="toast" role="status" hidden></div>
     <div id="busy" hidden><span>正在生成图纸…</span></div>
     <dialog id="dialog">

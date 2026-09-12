@@ -44,6 +44,9 @@ for (const route of [
   "/admin",
   "/style.css",
   "/bootstrap.mjs",
+  "/palette-model.mjs",
+  "/palette-manager.mjs",
+  "/presets.json",
   "/strawberry.jpg",
 ]) {
   const response = await built.default.fetch(

@@ -16,7 +16,8 @@ export async function api(path, data, method = "POST") {
   if (!response.ok) throw new Error(value.error || "请求失败");
   return value;
 }
-export function modal(title, content) {
+export function modal(title, content, className = "") {
+  $("dialog").className = className;
   $("dialogTitle").textContent = title;
   $("dialogBody").replaceChildren();
   if (typeof content === "string") $("dialogBody").innerHTML = content;

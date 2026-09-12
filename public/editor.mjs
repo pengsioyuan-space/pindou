@@ -1,4 +1,6 @@
 import { $, api, modal, toast, requireCard } from "./bootstrap.mjs";
+import { BRANDS, sortColors, selectedPreset } from "./palette-model.mjs";
+import { managePalette as openPaletteManager } from "./palette-manager.mjs";
 import {
   rgb,
   pixelate,
@@ -13,11 +15,14 @@ import {
 } from "./engine.mjs";
 let p = null,
   palette = [],
+  presets = {},
+  brushSelected = false,
+  showAllColors = true,
   selected = new Set(),
   imageData = null,
   undoStack = [],
   redoStack = [],
-  tool = "brush",
+  tool = "pan",
   zoom = 1,
   showKeys = false,
   showCoords = false,
@@ -73,8 +78,9 @@ function need() {
   return true;
 }
 function choose(c) {
+  brushSelected = true;
   $("color").value = c;
-  $("colorName").textContent = code(c);
+  $("colorName").textContent = "当前：" + code(c);
   renderPalette();
   if (highlighted) render();
 }
@@ -90,11 +96,17 @@ function selectTool(value) {
 }
 function renderPalette() {
   $("swatches").replaceChildren();
-  for (const item of palette.filter((e) => selected.has(e.hex))) {
+  const used = new Set(p?.cells.filter(Boolean) || []);
+  const visible = palette.filter((e) =>
+    showAllColors ? selected.has(e.hex) : used.has(e.hex),
+  );
+  for (const item of sortColors(visible, $("brand").value)) {
     const b = document.createElement("button");
     b.className =
       "swatch" +
-      (item.hex === $("color").value.toUpperCase() ? " selected" : "");
+      (brushSelected && item.hex === $("color").value.toUpperCase()
+        ? " selected"
+        : "");
     b.style.background = item.hex;
     b.style.color = contrast(item.hex);
     b.textContent = item.codes?.[$("brand").value] || "";
@@ -102,7 +114,11 @@ function renderPalette() {
     b.onclick = () => choose(item.hex);
     $("swatches").append(b);
   }
-  $("paletteTotal").textContent = `${selected.size} 色`;
+  $("paletteTotal").textContent = `可用色 ${selected.size}`;
+  $("paletteView").textContent = showAllColors
+    ? `完整色板（${selected.size}）`
+    : `图片颜色（${visible.length}）· 展开完整色板`;
+  renderPresetButtons();
 }
 function render() {
   if (!p) return;
@@ -183,7 +199,7 @@ function render() {
     total = entries.reduce((s, [, n]) => s + n, 0);
   $("summary").textContent =
     `${p.width}×${p.height} 格 · ${entries.length} 色 · ${total.toLocaleString()} 颗豆子${dirty ? " · 未保存" : ""}`;
-  $("beadTotal").textContent = `${total.toLocaleString()} 个豆子`;
+  $("beadTotal").textContent = `${total.toLocaleString()} 颗`;
   $("colorCounts").replaceChildren();
   for (const [color, amount] of entries) {
     const row = document.createElement("button");
@@ -193,13 +209,14 @@ function render() {
       n = document.createElement("b");
     swatch.style.background = color;
     text.textContent = code(color);
-    n.textContent = amount;
+    n.textContent = amount + " 颗";
     row.append(swatch, text, n);
-    row.onclick = () => choose(color);
+    row.onclick = () => replaceColor(color, amount);
     $("colorCounts").append(row);
   }
   $("undo").disabled = !undoStack.length;
   $("redo").disabled = !redoStack.length;
+  if (!showAllColors) renderPalette();
 }
 function point(e) {
   const c = $("canvas"),
@@ -234,6 +251,8 @@ function events() {
     if (!p || e.button !== 0) return;
     const q = point(e);
     if (!inBounds(q)) return;
+    if (["brush", "fill", "rect"].includes(tool) && !brushSelected)
+      return toast("请先在画笔色板中选择颜色");
     e.preventDefault();
     c.setPointerCapture(e.pointerId);
     if (tool === "pick") {
@@ -539,49 +558,96 @@ function downloadDialog() {
     }, "image/png");
   };
 }
-function managePalette() {
-  modal(
-    "色板管理",
-    '<p class="muted">选择参与图片转换的颜色。已有图纸不会被立即修改。</p><div class="inline"><button id="selectAll">全选</button><button id="selectNone">全不选</button></div><div id="paletteChoices" class="swatches"></div><button class="primary wide" id="applyPalette">保存并应用</button>',
-  );
-  const next = new Set(selected);
-  function update() {
-    $("paletteChoices").replaceChildren();
-    for (const item of palette) {
-      const b = document.createElement("button");
-      b.className = "swatch" + (next.has(item.hex) ? "" : " excluded");
-      b.style.background = item.hex;
-      b.style.color = contrast(item.hex);
-      b.textContent = item.codes?.[$("brand").value] || "";
-      b.title = item.hex;
-      b.onclick = () => {
-        next.has(item.hex) ? next.delete(item.hex) : next.add(item.hex);
-        update();
-      };
-      $("paletteChoices").append(b);
-    }
+function renderPresetButtons() {
+  const active = selectedPreset(presets, $("brand").value, selected);
+  $("presetButtons").replaceChildren();
+  for (const size of [291, 221, 144, 120]) {
+    const button = document.createElement("button");
+    button.textContent = size + "色";
+    button.className = active === String(size) ? "primary" : "";
+    button.setAttribute("aria-pressed", active === String(size));
+    button.onclick = () => {
+      const values = presets[$("brand").value][size];
+      const known = new Set(palette.map((c) => c.hex));
+      if (values.some((c) => !known.has(c)))
+        return toast("当前为自定义色板，请先导入完整色板再选择此预设");
+      selected = new Set(values);
+      renderPalette();
+      toast("已选择 " + size + " 色，重新生成时应用");
+    };
+    $("presetButtons").append(button);
   }
-  $("selectAll").onclick = () => {
-    palette.forEach((e) => next.add(e.hex));
-    update();
-  };
-  $("selectNone").onclick = () => {
-    next.clear();
-    update();
-  };
-  $("applyPalette").onclick = () => {
-    if (!next.size) return toast("请至少保留一种颜色");
-    selected = next;
+  $("presetStatus").hidden = !!active;
+  $("presetStatus").textContent = "自定义 · " + selected.size + " 色";
+}
+function renderBrands() {
+  $("brandButtons").replaceChildren();
+  for (const brand of BRANDS) {
+    const button = document.createElement("button");
+    button.textContent = brand.label;
+    button.className = $("brand").value === brand.value ? "primary" : "";
+    button.setAttribute("aria-pressed", $("brand").value === brand.value);
+    button.onclick = () => {
+      $("brand").value = brand.value;
+      $("brand").onchange();
+    };
+    $("brandButtons").append(button);
+  }
+}
+function managePalette() {
+  openPaletteManager({ palette, selected, brand: $("brand").value }, (next) => {
+    palette = next.palette;
+    selected = next.selected;
+    $("brand").value = next.brand;
+    renderBrands();
     renderPalette();
-    $("dialog").close();
-  };
-  update();
+    render();
+    if (brushSelected)
+      $("colorName").textContent =
+        "当前：" + code($("color").value.toUpperCase());
+    toast("色板已应用，重新生成图片时使用所选颜色");
+  });
+}
+function replaceColor(from, amount) {
+  const body = document.createElement("div"),
+    hint = document.createElement("p"),
+    grid = document.createElement("div");
+  hint.className = "muted";
+  hint.textContent =
+    "将 " + code(from) + " 的 " + amount + " 颗替换为所选颜色，可撤回。";
+  grid.className = "swatches";
+  for (const color of sortColors(
+    palette.filter((c) => selected.has(c.hex)),
+    $("brand").value,
+  )) {
+    const button = document.createElement("button");
+    button.className = "swatch";
+    button.style.background = color.hex;
+    button.style.color = contrast(color.hex);
+    button.textContent = code(color.hex);
+    button.title = code(color.hex) + " " + color.hex;
+    button.onclick = () => {
+      if (from !== color.hex) {
+        remember();
+        p.cells = p.cells.map((c) => (c === from ? color.hex : c));
+        render();
+      }
+      $("dialog").close();
+    };
+    grid.append(button);
+  }
+  body.append(hint, grid);
+  modal("替换杂色", body);
 }
 export async function init() {
   const response = await fetch("./palette.json");
   if (!response.ok) throw new Error("色板加载失败");
   palette = await response.json();
-  palette.forEach((e) => selected.add(e.hex));
+  const presetResponse = await fetch("./presets.json");
+  if (!presetResponse.ok) throw new Error("预设加载失败");
+  presets = await presetResponse.json();
+  selected = new Set(presets.MARD[221]);
+  renderBrands();
   renderPalette();
   events();
   const action = (id, fn) => {
@@ -617,8 +683,23 @@ export async function init() {
     $("gridWidth").value = $("widthNumber").value;
     $("widthOut").value = $("widthNumber").value;
   };
-  $("threshold").oninput = () =>
-    ($("thresholdOut").value = $("threshold").value);
+  $("threshold").oninput = () => {
+    $("thresholdOut").value = $("threshold").value;
+    $("thresholdNumber").value = $("threshold").value;
+  };
+  action("applyThreshold", () => {
+    const value = Number($("thresholdNumber").value);
+    if (
+      $("thresholdNumber").value.trim() === "" ||
+      !Number.isInteger(value) ||
+      value < 0 ||
+      value > 100
+    )
+      return toast("阈值需为 0–100 的整数");
+    $("threshold").value = value;
+    $("thresholdOut").value = value;
+    if (imageData) return generate();
+  });
   action("regenerate", generate);
   action("applySize", generate);
   document
@@ -673,7 +754,10 @@ export async function init() {
   $("brand").onchange = () => {
     renderPalette();
     render();
-    $("colorName").textContent = code($("color").value.toUpperCase());
+    renderBrands();
+    if (brushSelected)
+      $("colorName").textContent =
+        "当前：" + code($("color").value.toUpperCase());
   };
   action("zoomIn", () => {
     zoom = Math.min(8, zoom * 1.25);
@@ -691,22 +775,13 @@ export async function init() {
     if (p) render();
   });
   action("replace", () => {
-    if (!need()) return;
-    modal(
-      "替换颜色",
-      '<p class="muted">替换当前图纸中的全部同色格子，可撤回。</p><label>原颜色 <input id="fromColor" type="color"></label><label>新颜色 <input id="toColor" type="color"></label><button id="replaceNow" class="primary wide">替换全部</button>',
-    );
-    $("fromColor").value = $("color").value;
-    $("replaceNow").onclick = () => {
-      remember();
-      p.cells = p.cells.map((c) =>
-        c === $("fromColor").value.toUpperCase()
-          ? $("toColor").value.toUpperCase()
-          : c,
-      );
-      render();
-      $("dialog").close();
-    };
+    if (need()) {
+      $("replacementPanel").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      toast("点击用量列表中的颜色，再选择替换色");
+    }
   });
   action("resize", () => {
     if (!need()) return;
@@ -781,55 +856,13 @@ export async function init() {
     if (await requireCard()) downloadDialog();
   });
   action("paletteManage", managePalette);
-  action("paletteExport", () =>
-    saveDownload(
-      "pindou-palette.json",
-      new Blob(
-        [
-          JSON.stringify(
-            palette.filter((e) => selected.has(e.hex)),
-            null,
-            2,
-          ),
-        ],
-        { type: "application/json" },
-      ),
-    ),
-  );
-  action("paletteImport", () => $("paletteFile").click());
-  $("paletteFile").onchange = async (e) => {
-    const file = e.target.files[0];
-    e.target.value = "";
-    if (!file) return;
-    try {
-      if (file.size > 1000000) throw new Error("色板文件过大");
-      const list = JSON.parse(await file.text());
-      if (
-        !Array.isArray(list) ||
-        !list.length ||
-        list.length > 500 ||
-        !list.every(
-          (c) =>
-            /^#[a-f0-9]{6}$/i.test(c.hex) &&
-            (!c.codes ||
-              Object.values(c.codes).every(
-                (v) => typeof v === "string" && v.length <= 20,
-              )),
-        )
-      )
-        throw new Error("色板应为包含 hex 和可选 codes 的数组，最多 500 色。");
-      palette = list.map((c) => ({
-        hex: c.hex.toUpperCase(),
-        codes: c.codes || {},
-      }));
-      selected = new Set(palette.map((c) => c.hex));
-      renderPalette();
-      render();
-      toast("自定义色板已导入");
-    } catch (e) {
-      toast(e.message);
-    }
-  };
+  action("downloadBottom", async () => {
+    if (await requireCard()) downloadDialog();
+  });
+  action("paletteView", () => {
+    showAllColors = !showAllColors;
+    renderPalette();
+  });
   action("save", async () => {
     if (!need() || !(await requireCard())) return;
     modal(
