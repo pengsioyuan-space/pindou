@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>草莓 · 拼豆图纸生成器</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./strawberry.jpg" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="./"
+        ><img src="./strawberry.jpg" alt="草莓" /><span
+          ><b>草莓</b><small>拼豆底稿生成器</small></span
+        ></a
+      >
+      <nav>
+        <button class="primary" id="generation">生成模式</button
+        ><button id="fullscreen">全屏模式</button>
+      </nav>
+      <div class="header-actions">
+        <button id="account">验证卡密</button
+        ><button id="history">历史记录</button
+        ><button id="save">保存图纸</button><button id="import">导入</button
+        ><button id="download">下载</button>
+      </div>
+    </header>
+    <main>
+      <section class="workspace">
+        <div class="canvas-toolbar">
+          <span class="pill" id="dimensions">模具尺寸 100×100</span
+          ><span id="toolHint">导入图片或新建画板</span>
+        </div>
+        <div id="viewport">
+          <div id="empty">
+            <img src="./strawberry.jpg" alt="" /><button id="uploadStart">
+              <b>上传图片开始生成</b
+              ><small>支持 JPG / PNG / CSV，点击或拖拽到画布</small></button
+            ><button id="blankStart">
+              <b>手动空白画板编辑</b
+              ><small>创建 100×100 空白画布，使用画笔自由设计拼豆图</small>
+            </button>
+          </div>
+          <canvas id="canvas" hidden aria-label="拼豆图纸编辑画布"></canvas>
+        </div>
+        <div class="canvas-footer">
+          <span id="summary">准备开始你的第一张图纸</span>
+          <div>
+            <button id="zoomOut" title="缩小">−</button
+            ><span id="zoomLabel">100%</span
+            ><button id="zoomIn" title="放大">＋</button
+            ><button id="fit">适应画布</button>
+          </div>
+        </div>
+      </section>
+      <aside>
+        <section class="panel">
+          <h2>工作模式</h2>
+          <button class="primary wide" id="modeGenerate">生成模式</button
+          ><button class="wide" id="modeFull">全屏模式</button>
+        </section>
+        <section class="panel">
+          <h2>参数设置 <small>10–500</small></h2>
+          <label
+            >横向方格尺寸数量 <output id="widthOut">100</output
+            ><input id="gridWidth" type="range" min="10" max="500" value="100"
+          /></label>
+          <div class="inline">
+            <span>手动输入</span
+            ><input
+              id="widthNumber"
+              type="number"
+              min="10"
+              max="500"
+              value="100"
+            /><button id="applySize">确认</button>
+          </div>
+          <label
+            >颜色合并阈值 <output id="thresholdOut">32</output
+            ><input
+              id="threshold"
+              type="range"
+              min="0"
+              max="100"
+              value="32" /></label
+          ><label
+            >处理模式<select id="mode">
+              <option value="dominant">卡通（主色）</option>
+              <option value="average">真实（平均）</option>
+              <option value="dither">抖动（误差扩散）</option>
+              <option value="smooth">平滑（强化合并）</option>
+              <option value="palette">调色板映射（纯映射）</option>
+            </select></label
+          ><button class="wide primary" id="regenerate">应用参数并生成</button>
+        </section>
+        <section class="panel">
+          <h2>工具 <small id="currentTool">当前：画笔</small></h2>
+          <div class="tools">
+            <button data-tool="pan">拖拽 (H)</button
+            ><button data-tool="brush" class="primary">画笔 (B)</button
+            ><button data-tool="pick">取色 (I)</button
+            ><button id="undo">撤回 (E)</button
+            ><button data-tool="fill">填充 (F)</button
+            ><button data-tool="rect">矩形 (R)</button
+            ><button id="flipX">水平镜像</button
+            ><button id="flipY">垂直镜像</button
+            ><button id="highlight">颜色高亮</button
+            ><button id="keys">显示色号</button
+            ><button id="coords">显示坐标</button
+            ><button id="replace">替换颜色</button
+            ><button id="background">一键去背景</button
+            ><button data-tool="erase">手动消除背景</button
+            ><button id="textTool">文字生成</button
+            ><button id="redo">重做</button><button id="resize">调整画布</button
+            ><button id="newBlank">新建画板</button>
+          </div>
+          <div class="inline">
+            <label
+              >画笔大小<input
+                id="brushSize"
+                type="number"
+                value="1"
+                min="1"
+                max="20" /></label
+            ><label class="check"
+              ><input id="solid" type="checkbox" checked />矩形实心</label
+            >
+          </div>
+          <div class="inline color-current">
+            <input type="color" id="color" value="#000000" /><span
+              id="colorName"
+              >#000000</span
+            >
+          </div>
+        </section>
+        <section class="panel">
+          <h2>品牌与色板 <small id="paletteTotal"></small></h2>
+          <select id="brand">
+            <option>MARD</option>
+            <option>COCO</option>
+            <option>漫漫</option>
+            <option>盼盼</option>
+            <option>咪小窝</option>
+          </select>
+          <div class="inline">
+            <button id="paletteManage">色板管理</button
+            ><button id="paletteImport">导入色板</button
+            ><button id="paletteExport">导出色板</button>
+          </div>
+          <div id="swatches" class="swatches"></div>
+        </section>
+        <section class="panel">
+          <h2>颜色统计 <small id="beadTotal">0 个豆子</small></h2>
+          <div id="colorCounts" class="color-counts">
+            <p class="muted">生成图纸后显示每种颜色的用量</p>
+          </div>
+        </section>
+        <p class="aside-note">
+          图片在浏览器中处理 · 图纸可保存到服务器<br />每张卡密最多绑定 2
+          个浏览器
+        </p>
+      </aside>
+    </main>
+    <input
+      type="file"
+      id="file"
+      accept="image/png,image/jpeg,.csv,.json"
+      hidden
+    /><input type="file" id="paletteFile" accept=".json" hidden />
+    <div id="toast" role="status" hidden></div>
+    <div id="busy" hidden><span>正在生成图纸…</span></div>
+    <dialog id="dialog">
+      <div class="dialog-head">
+        <h2 id="dialogTitle"></h2>
+        <button id="closeDialog" aria-label="关闭">×</button>
+      </div>
+      <div id="dialogBody"></div>
+    </dialog>
+    <script type="module" src="./bootstrap.mjs"></script>
+  </body>
+</html>

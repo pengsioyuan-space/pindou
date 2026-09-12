@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>卡密管理 · 草莓拼豆</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="admin">
+      <div class="admin-intro">
+        <div>
+          <h1>卡密管理</h1>
+          <p class="muted">首次激活计时 · 每卡最多绑定 2 个浏览器</p>
+        </div>
+        <a href="./">返回拼豆工作台 →</a>
+      </div>
+      <section id="adminLogin" class="panel">
+        <h2>管理员验证</h2>
+        <form id="loginForm">
+          <label
+            >管理密钥
+            <input
+              id="adminKey"
+              type="password"
+              autocomplete="current-password"
+              required
+          /></label>
+          <p class="muted">
+            管理密钥由部署者配置，仅用于管理后台，不是用户卡密。
+          </p>
+          <button class="primary">进入管理后台</button>
+        </form>
+      </section>
+      <div id="adminContent" hidden>
+        <section class="panel">
+          <h2>生成新卡密 <button id="adminLogout">退出管理</button></h2>
+          <form id="createCards" class="admin-form">
+            <label
+              >备注<input
+                type="text"
+                id="batchLabel"
+                maxlength="80"
+                placeholder="例如：九月月卡" /></label
+            ><label
+              >有效期<select id="cardDays">
+                <option value="1">1 天</option>
+                <option value="7">7 天</option>
+                <option value="30" selected>30 天</option>
+                <option value="365">365 天</option>
+                <option value="0">永久</option>
+              </select></label
+            ><label
+              >数量<input
+                type="number"
+                id="cardCount"
+                min="1"
+                max="100"
+                value="1" /></label
+            ><button class="primary" id="createButton">生成卡密</button>
+          </form>
+          <p class="muted">
+            未激活不会开始计时。明文卡密仅在生成后显示一次，请立即保存。
+          </p>
+          <div id="generated" hidden>
+            <textarea
+              id="generatedCodes"
+              readonly
+              aria-label="新生成的卡密"
+            ></textarea
+            ><button id="downloadCodes">下载卡密清单</button
+            ><button id="clearCodes">已保存，清空显示</button>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>卡密列表 <button id="refreshCards">刷新</button></h2>
+          <p class="muted">
+            最近 500
+            张。重置绑定会让两个浏览器退出，但不会重置到期时间。停用立即阻止后续访问。
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>尾号</th>
+                  <th>备注</th>
+                  <th>有效期</th>
+                  <th>状态</th>
+                  <th>激活时间</th>
+                  <th>到期时间</th>
+                  <th>浏览器</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="cardsTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+      <p class="error" id="adminError" role="alert"></p>
+    </div>
+    <script type="module" src="./admin.mjs"></script>
+  </body>
+</html>
