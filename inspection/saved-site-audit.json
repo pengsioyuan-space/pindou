@@ -1,0 +1,396 @@
+{
+  "method": "Static inspection only; no scripts executed and no service calls made.",
+  "files": [
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器.html",
+      "bytes": 98822,
+      "sha256": "f272125bae9ff143f8bc08315164e59c57e5f556daffdb40cae969624e24b019"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/1371-af7c1517558207b9.js.下载",
+      "bytes": 9799,
+      "sha256": "4bfb31a75205c6692600c4e331dc2a05060b45153ae54a5ef13ecc27dc1f4090"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/1684-e7bb402b1a376eae.js.下载",
+      "bytes": 175363,
+      "sha256": "c191133b67406896819729d9529c2be337308644db24ababa3d3da9059cc16a7"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/34cacd5768563a14.css",
+      "bytes": 97188,
+      "sha256": "edee26572e37ec75443c28c3cae5b7ffed13cbbeda00a84f9a8183583f045e6c"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/4bd1b696-a765127924a6f746.js.下载",
+      "bytes": 168414,
+      "sha256": "7853b169f8b427265330712e20d946eff47816cd00f1a3e7e620ad8310a5d697"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/5123-b4d537dcca3d7699.js.下载",
+      "bytes": 343259,
+      "sha256": "0e8c119ce051915bf69fbe49839b8227eaf4c051dec872cc11d4de9a95f87213"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/7244-8d209b7251514507.js.下载",
+      "bytes": 8660,
+      "sha256": "5168912df0270d4a037f5ca26b20fc5ec1e98894336a5a902f4e930b1926c30c"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/9145-97d77a98d1652b54.js.下载",
+      "bytes": 19901,
+      "sha256": "d78adbe202cddfb8d3a66c45cd2b72429d06caaa37030740829abdaec485cf49"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/busuanzi.pure.mini.js.下载",
+      "bytes": 1939,
+      "sha256": "0471fe90ad450f642e15aa79134b7bb6a2b2fd7e88349948fbe60747062ab25e"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/hm.js.下载",
+      "bytes": 29896,
+      "sha256": "d4531f8a70169a6d8ac3c5409596e5e578bfb41eb1cf8bbd9c94d964c9e1d3fe"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image",
+      "bytes": 9848,
+      "sha256": "5e4c076481baa0b6e3adb428a79ec70bb89d4e9c4606abe2cdd7b0281edcf7cd"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image(1)",
+      "bytes": 30744,
+      "sha256": "ffdb03a85d929fe5bf03e94cc00ae78d0947af6c221ada1475b43f4d9ac4f6fa"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image(2)",
+      "bytes": 476,
+      "sha256": "d5615579e532d9574b0feb90ea4952bae0eb1df3ceb62e00120b632b0d3d85e7"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/layout-3555ff0546eae8e6.js.下载",
+      "bytes": 5652,
+      "sha256": "bade6122735747748f6b01073394371d84a77193967b45b84745d41185c254dd"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/logtu.jpg",
+      "bytes": 337900,
+      "sha256": "d7baa9ac05b2d043d63328cfad932f24ef034061cb62f4129e1a189cf61e2c56"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/main-app-8521384201cd3beb.js.下载",
+      "bytes": 521,
+      "sha256": "762229d5caf7477966c5642c1e7a973fcfb7e09486fa85aef77989e3bdfe31c5"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495",
+      "bytes": 30294,
+      "sha256": "08c4fd72f9d96a7aa554510dff2c293973b1b092dff1b9b282bce9111b50ef41"
+    },
+    {
+      "path": "草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/webpack-a51c6e9c279026ee.js.下载",
+      "bytes": 3410,
+      "sha256": "67e008a05375a692b14e81c4c6affc33d8849ce1afd5bd49b653dd5cb6dbbbbd"
+    }
+  ],
+  "local_html_references": [
+    {
+      "tag": "link",
+      "attribute": "href",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/34cacd5768563a14.css",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/hm.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/4bd1b696-a765127924a6f746.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/1684-e7bb402b1a376eae.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/main-app-8521384201cd3beb.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/layout-3555ff0546eae8e6.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/7244-8d209b7251514507.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/9145-97d77a98d1652b54.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/1371-af7c1517558207b9.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/5123-b4d537dcca3d7699.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/polyfills-42372ed130431b0a.js.下载",
+      "exists": false
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/webpack-a51c6e9c279026ee.js.下载",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495",
+      "exists": true
+    },
+    {
+      "tag": "img",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/logtu.jpg",
+      "exists": true
+    },
+    {
+      "tag": "img",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image",
+      "exists": true
+    },
+    {
+      "tag": "img",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image(1)",
+      "exists": true
+    },
+    {
+      "tag": "img",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/image(2)",
+      "exists": true
+    },
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/busuanzi.pure.mini.js.下载",
+      "exists": true
+    }
+  ],
+  "missing_local_html_references": [
+    {
+      "tag": "script",
+      "attribute": "src",
+      "url": "./草莓拼豆图纸生成器 _ pixelbeads拼豆图纸转换器 _ 拼豆图片生成器_files/polyfills-42372ed130431b0a.js.下载",
+      "exists": false
+    }
+  ],
+  "api_paths": [
+    "/api/activate-card",
+    "/api/card-config",
+    "/api/frontend-config",
+    "/api/query-card-binding",
+    "/api/upload-usage"
+  ],
+  "root_assets_referenced_in_scripts": [
+    "/beiantubiao.png",
+    "/donation-qr.jpg",
+    "/duibi1.jpg",
+    "/duibi2.jpg",
+    "/goumaikami.jpg",
+    "/kefu.jpg",
+    "/logtu.jpg",
+    "/tiankaqun.jpg",
+    "/tuzhitu.png",
+    "/website_qrcode.png",
+    "/yongjiu.jpg",
+    "/zuzhi.jpg"
+  ],
+  "ui_labels": [
+    "首页",
+    "项目",
+    "我的",
+    "下载图纸设置",
+    "显示网格线",
+    "网格线间隔 (每 N 格画一条线)",
+    "网格线颜色",
+    "显示坐标数字",
+    "隐藏格内色号",
+    "包含色号统计",
+    "同时导出源数据",
+    "导出 CSV 文件，保留当前作图数据重新导入可恢复，需要图纸时误选。",
+    "取消",
+    "下载图纸",
+    "色板设置",
+    "色号系统",
+    "切换色号系统仅影响显示，不会改变已选颜色。",
+    "全选",
+    "全不选",
+    "保存并应用",
+    "在画布上拖拽选择要放大的区域",
+    "开源项目是把作者和用户紧紧联系在一起的社群，如果您希望这个项目继续发展，可以请作者喝一杯奶茶。",
+    "您的支持是作者把项目继续下去的动力。",
+    "微信扫描上方赞赏码，请作者喝一杯奶茶。",
+    "工作模式",
+    "生成模式",
+    "全屏模式",
+    "参数设置",
+    "手动输入",
+    "确认",
+    "颜色合并阈值 (0-100)",
+    "处理模式",
+    "卡通 (主色)",
+    "真实 (平均)",
+    "抖动 (误差扩散)",
+    "平滑 (强化合并)",
+    "调色板映射 (纯映射)",
+    "工具",
+    "拖拽 (H)",
+    "画笔 (B)",
+    "取色 (I)",
+    "撤回 (E)",
+    "填充 (F)",
+    "矩形 (R)",
+    "水平镜像",
+    "垂直镜像",
+    "颜色高亮",
+    "替换杂色",
+    "一键去背景",
+    "手动消除背景",
+    "文字生成",
+    "画笔形状",
+    "矩形实心",
+    "画笔大小",
+    "画笔颜色选择",
+    "一键恢复（撤销所有颜色更换）",
+    "色板与导出",
+    "品牌：",
+    "色号：",
+    "色板管理",
+    "撤回",
+    "最近使用",
+    "暂无",
+    "色盘",
+    "拖动移动框选位置",
+    "拼豆底稿生成器",
+    "历史记录",
+    "客服",
+    "导入",
+    "下载",
+    "网格",
+    "完成",
+    "编辑",
+    "上传图片开始生成",
+    "支持 JPG / PNG / CSV，点击或拖拽到画布",
+    "手动空白画板编辑",
+    "创建 100\\xd7100 空白画布，使用画笔自由设计拼豆图",
+    "颜色统计",
+    "恢复",
+    "一键恢复所有",
+    "当前可用颜色过少，请恢复部分被排除的颜色或调整色板。",
+    "请选择一个颜色，作为当前画笔颜色。",
+    "返回",
+    "更多色号",
+    "快捷入口",
+    "视频教程",
+    "购买卡密",
+    "手机/电脑客户端下载",
+    "一键恢复所有颜色",
+    "完成模式",
+    "拼豆尺寸",
+    "个豆子",
+    "修改大小",
+    "调整大小",
+    "自适应比例：",
+    "锁定",
+    "解锁",
+    "图像尺寸（宽度）",
+    "高度",
+    "填充",
+    "清除",
+    "扩展容差",
+    "效果展示",
+    "左侧上传任意图片，右侧即可自动生成可直接制作的拼豆图纸效果。",
+    "图",
+    "原图示例",
+    "表",
+    "拼豆图纸示例",
+    "预览视频效果",
+    "下面为网站一键生成的拼豆图纸效果演示视频，让你在下单前就能直观看到成品效果，提升出图效率与成品质量。",
+    "视频仅为效果示例，实际生成视频会根据你上传的图片自动制作。",
+    "强大功能",
+    "创建完美拼豆图案所需的一切能力，简单易上手。",
+    "品牌配色板",
+    "从 MARD、COCO、MANMAN、PANPAN、MiXiaoWo 及自定义色板中选择，自动匹配接近原图的颜色效果。",
+    "计",
+    "自动珠子计数",
+    "自动统计每种颜色所需珠子数量，开工前心里有数。",
+    "可下载图案",
+    "一键导出带色号、网格与统计信息的高清底稿，方便打印或保存。",
+    "手动颜色编辑",
+    "使用画笔、橡皮、矩形等工具微调局部，支持撤销与重做。",
+    "格",
+    "可调节网格大小",
+    "自由设置横向格子数量，在画质细腻度与制作难度之间找到平衡。",
+    "即时处理",
+    "调整参数后快速重新生成效果，实时看到每一次修改的变化。",
+    "丨",
+    "关于我们",
+    "我要投诉",
+    "联系我们",
+    "鲁ICP备2026000797号-1",
+    "鲁公网安备37112202000299号",
+    "联系客服",
+    "好的",
+    "永久VIP用户提示",
+    "您为永久拼豆生成器VIP用户，为防止卡密遗失，请尽快将卡密绑定手机号并加入VIP组织群，绑定后可用手机号验证卡密",
+    "暂不绑定",
+    "去绑定",
+    "卡密验证",
+    "你上传图片使用拼豆图生成器需要输入卡密或手机号验证使用",
+    "卡密或手机号",
+    "在空白画板上自动生成最多 5 个字的拼豆格子图。",
+    "输入文字（最多 5 个字）",
+    "访问站长分享图纸需要输入卡密或手机号验证使用",
+    "验证成功，正在跳转...",
+    "加入VIP群",
+    "此页面仅显示一次，请保存添加！",
+    "请输入10位卡密或11位手机号验证",
+    "温馨提示",
+    "此页面仅显示一次，请确定已截图保存",
+    "返回保存",
+    "确定",
+    "成功",
+    "图纸已成功保存到云端",
+    "提示",
+    "检测到您在手机端下载图纸，下载完成后请先到浏览器的下载找到下载完的图纸，保存到相册即可在相册查看高清图纸。",
+    "正在载入项目",
+    "请稍候，正在恢复编辑数据..."
+  ],
+  "configuration_warning": "The supplied bundle contains an apiKey configuration/default. Values intentionally omitted. Review before GitHub upload."
+}
